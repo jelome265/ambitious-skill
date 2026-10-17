@@ -8,6 +8,11 @@ permissions:
   contents: write
   pull-requests: write
 
+# Serialize runs so overlapping merges to main cannot race and leave the release PR stale.
+concurrency:
+  group: release-please-main
+  cancel-in-progress: false
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
