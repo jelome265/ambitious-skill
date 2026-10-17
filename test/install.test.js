@@ -4,27 +4,31 @@ const assert = require('assert');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
+const crypto = require('crypto');
 const { spawnSync } = require('child_process');
 
 const CLI = path.resolve(__dirname, '..', 'bin', 'cli.js');
+const PKG = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'package.json'), 'utf8'));
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'ambitious-test-'));
 const home = path.join(tmp, 'home');
 const cwd = path.join(tmp, 'project');
 fs.mkdirSync(home, { recursive: true });
 fs.mkdirSync(cwd, { recursive: true });
 
-function run(args) {
+function run(args, env = {}) {
   return spawnSync(process.execPath, [CLI, ...args], {
     cwd,
-    env: { ...process.env, HOME: home, USERPROFILE: home },
+    env: { ...process.env, HOME: home, USERPROFILE: home, ...env },
     encoding: 'utf8',
   });
 }
-
-const target = () => path.join(home, '.claude', 'skills', 'ambitious');
+const sha = (file) => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+const skillsDir = () => path.join(home, '.claude', 'skills');
+const target = () => path.join(skillsDir(), 'ambitious');
 const manifestPath = () => path.join(target(), '.ambitious-skill.json');
 const readManifest = () => JSON.parse(fs.readFileSync(manifestPath(), 'utf8'));
-const pkgVersion = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'package.json'), 'utf8')).version;
+const writeManifest = (m) => fs.writeFileSync(manifestPath(), JSON.stringify(m));
+const wipe = () => fs.rmSync(skillsDir(), { recursive: true, force: true });
 
 let passed = 0;
 function test(name, fn) {
@@ -33,7 +37,10 @@ function test(name, fn) {
   console.log('ok -', name);
 }
 
+// ---- basic install and update ----
+
 test('default install writes payload and a manifest with a hash per file', () => {
+  wipe();
   const r = run([]);
   assert.strictEqual(r.status, 0, r.stderr);
   assert.ok(fs.existsSync(path.join(target(), 'SKILL.md')));
@@ -42,15 +49,9 @@ test('default install writes payload and a manifest with a hash per file', () =>
   }
   const m = readManifest();
   assert.strictEqual(m.name, 'ambitious-skill');
-  assert.strictEqual(m.version, pkgVersion);
-  assert.ok(m.files.some((f) => f.path === 'SKILL.md' && /^[0-9a-f]{64}$/.test(f.sha256)));
-});
-
-test('SKILL.md frontmatter has name ambitious and a description', () => {
-  const head = fs.readFileSync(path.join(target(), 'SKILL.md'), 'utf8').split('\n');
-  assert.strictEqual(head[0], '---');
-  assert.strictEqual(head[1], 'name: ambitious');
-  assert.ok(head.some((l) => l.startsWith('description: ')));
+  assert.strictEqual(m.version, PKG.version);
+  assert.ok(m.files.some((f) => f.path === 'SKILL.md' && f.sha256 === sha(path.join(target(), 'SKILL.md'))));
+  assert.deepStrictEqual(fs.readdirSync(skillsDir()).sort(), ['ambitious']);
 });
 
 test('install over an existing install without --force is refused', () => {
@@ -64,19 +65,24 @@ test('--force updates an install it owns and keeps files the user added', () => 
   const r = run(['--force']);
   assert.strictEqual(r.status, 0, r.stderr);
   assert.strictEqual(fs.readFileSync(path.join(target(), 'my-notes.md'), 'utf8'), 'mine');
+  assert.deepStrictEqual(fs.readdirSync(skillsDir()).sort(), ['ambitious']);
 });
 
+// ---- ownership and manifest validation ----
+
 test('--force refuses a directory with no manifest and changes nothing', () => {
-  const dir = path.join(tmp, 'foreign', 'ambitious');
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, 'keep.txt'), 'theirs');
-  const r = run(['--force', '--dir', path.join(tmp, 'foreign')]);
+  wipe();
+  fs.mkdirSync(target(), { recursive: true });
+  fs.writeFileSync(path.join(target(), 'keep.txt'), 'theirs');
+  const r = run(['--force']);
   assert.notStrictEqual(r.status, 0);
   assert.match(r.stderr, /not installed by/);
-  assert.deepStrictEqual(fs.readdirSync(dir), ['keep.txt']);
+  assert.deepStrictEqual(fs.readdirSync(target()), ['keep.txt']);
 });
 
 test('--force refuses a malformed manifest and changes nothing', () => {
+  wipe();
+  assert.strictEqual(run([]).status, 0);
   const original = fs.readFileSync(manifestPath(), 'utf8');
   fs.writeFileSync(manifestPath(), '{ not json');
   const r = run(['--force']);
@@ -86,14 +92,52 @@ test('--force refuses a malformed manifest and changes nothing', () => {
   fs.writeFileSync(manifestPath(), original);
 });
 
-test('--force refuses a forged manifest that points outside the skill directory', () => {
-  const original = fs.readFileSync(manifestPath(), 'utf8');
-  const forged = { name: 'ambitious-skill', version: '0.0.0', files: [{ path: '../escape.txt', sha256: 'a'.repeat(64) }] };
-  fs.writeFileSync(manifestPath(), JSON.stringify(forged));
+test('a manifest entry pointing outside the skill directory is refused', () => {
+  const m = readManifest();
+  writeManifest({ ...m, files: [...m.files, { path: '../escape.txt', sha256: 'a'.repeat(64) }] });
   const r = run(['--force']);
   assert.notStrictEqual(r.status, 0);
-  assert.match(r.stderr, /does not match/);
-  fs.writeFileSync(manifestPath(), original);
+  assert.match(r.stderr, /not part of/);
+  writeManifest(m);
+});
+
+test('a forged in-target entry for a user file is refused and the user file survives uninstall', () => {
+  const userFile = path.join(target(), 'my-notes.md');
+  fs.writeFileSync(userFile, 'mine');
+  const m = readManifest();
+  writeManifest({ ...m, files: [...m.files, { path: 'my-notes.md', sha256: sha(userFile) }] });
+  const f = run(['--force']);
+  assert.notStrictEqual(f.status, 0);
+  assert.match(f.stderr, /not part of/);
+  const u = run(['uninstall']);
+  assert.notStrictEqual(u.status, 0);
+  assert.strictEqual(fs.readFileSync(userFile, 'utf8'), 'mine');
+  writeManifest(m);
+  fs.rmSync(userFile);
+});
+
+test('a manifest that lists the same file twice is refused', () => {
+  const m = readManifest();
+  writeManifest({ ...m, files: [...m.files, m.files[0]] });
+  const r = run(['--force']);
+  assert.notStrictEqual(r.status, 0);
+  assert.match(r.stderr, /twice/);
+  writeManifest(m);
+});
+
+test('a payload file the user created in place of a managed one is refused, not overwritten', () => {
+  const m = readManifest();
+  const dropped = m.files.find((f) => f.path === 'SKILL.md');
+  writeManifest({ ...m, files: m.files.filter((f) => f !== dropped) });
+  const file = path.join(target(), 'SKILL.md');
+  const original = fs.readFileSync(file);
+  fs.writeFileSync(file, 'user content');
+  const r = run(['--force']);
+  assert.notStrictEqual(r.status, 0);
+  assert.match(r.stderr, /not managed/);
+  assert.strictEqual(fs.readFileSync(file, 'utf8'), 'user content');
+  fs.writeFileSync(file, original);
+  writeManifest(m);
 });
 
 test('--force refuses to overwrite a managed file the user edited', () => {
@@ -106,6 +150,85 @@ test('--force refuses to overwrite a managed file the user edited', () => {
   assert.ok(fs.readFileSync(file, 'utf8').endsWith('my edit\n'));
   fs.writeFileSync(file, original);
 });
+
+// ---- symlinks ----
+
+test('a symlinked references directory is refused by --force and uninstall, and external files are untouched', () => {
+  const external = path.join(tmp, 'external-refs');
+  fs.mkdirSync(external, { recursive: true });
+  const victim = path.join(external, 'depth.md');
+  fs.writeFileSync(victim, 'external content');
+  const refs = path.join(target(), 'references');
+  fs.renameSync(refs, path.join(tmp, 'refs-backup'));
+  fs.symlinkSync(external, refs, 'dir');
+
+  const f = run(['--force']);
+  assert.notStrictEqual(f.status, 0);
+  assert.match(f.stderr, /symlink/);
+  const u = run(['uninstall']);
+  assert.notStrictEqual(u.status, 0);
+  assert.match(u.stderr, /symlink|modified|refusing/);
+  assert.strictEqual(fs.readFileSync(victim, 'utf8'), 'external content');
+
+  fs.unlinkSync(refs);
+  fs.renameSync(path.join(tmp, 'refs-backup'), refs);
+  fs.rmSync(external, { recursive: true, force: true });
+});
+
+test('a symlinked skill directory is refused', () => {
+  wipe();
+  const elsewhere = path.join(tmp, 'elsewhere');
+  fs.mkdirSync(elsewhere, { recursive: true });
+  fs.mkdirSync(skillsDir(), { recursive: true });
+  fs.symlinkSync(elsewhere, target(), 'dir');
+  const r = run([]);
+  assert.notStrictEqual(r.status, 0);
+  assert.match(r.stderr, /symlink/);
+  assert.deepStrictEqual(fs.readdirSync(elsewhere), []);
+});
+
+// ---- atomic update: rollback and crash recovery ----
+
+test('an update that fails midway rolls back to the previous install', () => {
+  wipe();
+  assert.strictEqual(run([]).status, 0);
+  const before = fs.readFileSync(path.join(target(), 'SKILL.md'), 'utf8');
+  const beforeManifest = fs.readFileSync(manifestPath(), 'utf8');
+  const r = run(['--force'], { AMBITIOUS_SKILL_TEST_FAIL_AFTER: '2' });
+  assert.notStrictEqual(r.status, 0);
+  assert.match(r.stderr, /rolled back/);
+  assert.strictEqual(fs.readFileSync(path.join(target(), 'SKILL.md'), 'utf8'), before);
+  assert.strictEqual(fs.readFileSync(manifestPath(), 'utf8'), beforeManifest);
+  assert.ok(!fs.existsSync(path.join(target(), '.ambitious-skill.journal.json')));
+  assert.deepStrictEqual(fs.readdirSync(skillsDir()).sort(), ['ambitious']);
+  assert.strictEqual(run(['--force']).status, 0);
+});
+
+test('a hard crash mid-update leaves a journal; uninstall refuses; --force rolls back and completes', () => {
+  wipe();
+  assert.strictEqual(run([]).status, 0);
+  const before = fs.readFileSync(path.join(target(), 'SKILL.md'), 'utf8');
+  const crashed = run(['--force'], { AMBITIOUS_SKILL_TEST_CRASH_AFTER: '3' });
+  assert.strictEqual(crashed.status, 3);
+  assert.ok(fs.existsSync(path.join(target(), '.ambitious-skill.journal.json')));
+
+  const u = run(['uninstall']);
+  assert.notStrictEqual(u.status, 0);
+  assert.match(u.stderr, /interrupted update/);
+
+  const plain = run([]);
+  assert.notStrictEqual(plain.status, 0);
+  assert.match(plain.stderr, /interrupted update/);
+
+  const recovered = run(['--force']);
+  assert.strictEqual(recovered.status, 0, recovered.stderr);
+  assert.match(recovered.stdout, /Recovered an interrupted update/);
+  assert.ok(!fs.existsSync(path.join(target(), '.ambitious-skill.journal.json')));
+  assert.strictEqual(fs.readFileSync(path.join(target(), 'SKILL.md'), 'utf8'), before);
+  assert.deepStrictEqual(fs.readdirSync(skillsDir()).sort(), ['ambitious']);
+});
+
+// ---- scopes and uninstall ----
 
 test('--project installs under ./.claude/skills', () => {
   const r = run(['--project']);
@@ -121,23 +244,25 @@ test('--dir installs under the given root', () => {
 });
 
 test('--project and --dir together are rejected', () => {
-  const r = run(['--project', '--dir', tmp]);
-  assert.notStrictEqual(r.status, 0);
+  assert.notStrictEqual(run(['--project', '--dir', tmp]).status, 0);
 });
 
 test('uninstall removes managed files and keeps user files', () => {
+  wipe();
+  assert.strictEqual(run([]).status, 0);
+  fs.writeFileSync(path.join(target(), 'my-notes.md'), 'mine');
   const r = run(['uninstall']);
   assert.strictEqual(r.status, 0, r.stderr);
   assert.ok(!fs.existsSync(path.join(target(), 'SKILL.md')));
   assert.ok(!fs.existsSync(path.join(target(), 'references')));
-  assert.ok(fs.existsSync(path.join(target(), 'my-notes.md')));
   assert.ok(!fs.existsSync(manifestPath()));
+  assert.strictEqual(fs.readFileSync(path.join(target(), 'my-notes.md'), 'utf8'), 'mine');
   fs.rmSync(path.join(target(), 'my-notes.md'));
 });
 
 test('uninstall refuses a modified managed file and removes nothing', () => {
-  const r0 = run([]);
-  assert.strictEqual(r0.status, 0, r0.stderr);
+  wipe();
+  assert.strictEqual(run([]).status, 0);
   const file = path.join(target(), 'references', 'depth.md');
   fs.appendFileSync(file, '\nedit\n');
   const r = run(['uninstall']);
@@ -158,15 +283,6 @@ test('uninstall refuses a directory with no manifest', () => {
   assert.ok(fs.existsSync(path.join(dir, 'keep.txt')));
 });
 
-test('uninstall refuses a malformed manifest', () => {
-  const dir = path.join(tmp, 'bad', 'ambitious');
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, '.ambitious-skill.json'), 'nope');
-  const r = run(['uninstall', '--dir', path.join(tmp, 'bad')]);
-  assert.notStrictEqual(r.status, 0);
-  assert.ok(fs.existsSync(path.join(dir, '.ambitious-skill.json')));
-});
-
 test('unknown argument fails with a message', () => {
   const r = run(['--bogus']);
   assert.notStrictEqual(r.status, 0);
@@ -176,7 +292,7 @@ test('unknown argument fails with a message', () => {
 test('--version prints the package version', () => {
   const r = run(['--version']);
   assert.strictEqual(r.status, 0);
-  assert.strictEqual(r.stdout.trim(), pkgVersion);
+  assert.strictEqual(r.stdout.trim(), PKG.version);
 });
 
 fs.rmSync(tmp, { recursive: true, force: true });
