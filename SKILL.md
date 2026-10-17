@@ -1,55 +1,59 @@
 ---
 name: ambitious
-description: A tutorial for being more ambitious with models across four types - Speed, Altitude, Depth, and Range. Use this skill whenever the user wants to get more out of an AI model, says they are not being ambitious enough, wants bigger or deeper results instead of fill-in-the-template output, asks for help with a recurring business or engineering process, wants a model to work at the level of an outcome rather than a single task, or asks how to use models with more expert methods or cross-disciplinary perspective. Also use when a model's output feels generic, shallow, or limited to the obvious field. Do not use for simple one-step questions or small edits.
+description: How to do work at a higher level of ambition across four dimensions - Speed, Altitude, Depth, and Range. Use this skill whenever a task should reach past its immediate request, when a result is generic, shallow, or limited to the obvious field, when a recurring process should run with less manual steering, or when someone asks for bigger, deeper, or more ambitious work. Do not use for simple questions or small edits.
 ---
 
-# Being More Ambitious
+# Ambitious Work
 
-Models are astounding in some directions and inadequate in others. Many people never get past simple tasks, so this skill walks through ways to be more ambitious. There are four types of ambition: Speed, Altitude, Depth, and Range.
+Some work is done well by tools that can take on large outcomes. Most people never move past simple requests. This skill sets out four dimensions of ambition and the steps to take in each.
 
-- **Speed**: the same work in less time. This is the bread and butter of AI's value, and it needs little creativity in how you approach the model, so this skill does not cover it further.
-- **Altitude**: going up in abstraction, and considering the outcome rather than the individual task.
-- **Depth**: considering a task the way a field-leading expert would. Instead of working at the task's layer, go one level deeper and touch the underlying data, tools, and problems.
-- **Range**: drawing on multiple fields rather than only the one the task appears to need, using knowledge, tools, and techniques you would not normally reach for.
+- **Speed**: the same work in less time. This is the most common gain and needs little method, so it is not covered further.
+- **Altitude**: work at the level of the outcome, not the individual task.
+- **Depth**: work the way a field-leading expert would, one level below the task, on the underlying data, tools, and problems.
+- **Range**: draw on several fields, using knowledge, tools, and techniques the task does not obviously call for.
 
-The method is not specific to one model.
+Start by naming the dimensions that apply. Then work through them in the order below.
 
 ## Altitude: find the goal beyond the goal
 
-When you give a model a task, it executes your best guess at how to reach the outcome you want. To be more ambitious in altitude, ask: what do you want to happen next? What is the goal beyond the goal?
+1. State the task. Then ask: what should happen next? What is the goal beyond the goal?
+2. Gather as much data about the situation as you can. Do not limit the work to filling in a template. For a review, the questions are: what changed, why did it change, and what should be done about it.
+3. If the work should end in decisions, identify the three most urgent decisions given everything you have learned. For each, work through directions, with arguments for and against.
+4. If the artifact exists to serve a purpose, design a better way to serve that purpose. Test it against your own history to show whether it would have caught problems sooner. Run it beside the current method for a period.
+5. Where the outcome recurs, build a workflow that removes manual steering. This often means changing the workflow itself: make sure the work can fetch its own inputs (for example, crash reports), map each version to its source commit, and access the machines or environments needed to reproduce and verify results.
 
-Work through a task in steps, getting more ambitious at each step. Read `references/altitude.md` for the full worked example.
+Altitude fits concrete outcomes, especially work that would normally be discussed in meetings. It fits open creative work less well. "Make money" alone is not an outcome you can act on. Name the measurable result.
 
-- Give the model as much data as you can, so it understands your business, rather than letting it only update the numbers in a template. Ask what changed, why, and what to do about it.
-- If the meeting should end with decisions, ask the model to work out the most urgent decisions and begin working on directions for and against each.
-- If the artifact exists to achieve a purpose, ask the model to design a better way to achieve that purpose, show from your own history that it would have caught problems sooner, and run it alongside the current approach for a period.
+## Depth: use the methods of the best
 
-Altitude works best when you are after a concrete ultimate outcome, and less well for creative work. A good sign that altitude applies is that you would normally hold meetings about the work. Models can operate at higher levels of abstraction as they become more capable, though some goals are still out of reach: "make money" by itself does not work for most businesses yet.
+Depth means using the tools, techniques, media, and knowledge that the best practitioners use, and continuing until those practitioners could learn something from the result.
 
-Altitude also produces durable workflows that take the human out of the loop. Doing this often means changing the workflow itself. For example, to keep an app crash-free, the model first needs to fetch crash reports, map app versions to commits, and have access to the platforms it must test on, so it can reproduce and verify fixes on its own.
+1. **Use their instruments.** Use the methods experts use: databases and statistical tests, not tables that only look professional. You do not need to know which instruments they are; find out.
+2. **Set unreasonable targets and treat them as reasonable.** If a page should load in 5 seconds instead of 10, aim for 200 milliseconds. If something looks impossible, state that it is solvable and keep going.
+3. **Challenge what you know.** Start from the raw data, not summaries. Test each belief about the business or system against it. Where a belief fails, record that.
+4. **Produce new knowledge.** Look for blind spots. Build a simulation that reproduces the last year from your logs. Find the earliest signal of a problem you are not yet watching, and confirm it on data you did not use to find it.
+5. **Use an outside judge.** Do not treat the work as its own check. Verify results with something external: a test suite, an independent dataset, a tool that gives feedback immediately, or a reviewer who did not produce the work.
 
-## Depth: use what the best professionals use
+Before you begin, answer four questions, then write the task to match the answers:
 
-Sometimes you want a task executed really well. Being ambitious in depth means pushing the model to use the tools, techniques, media, and knowledge of the best professionals in the field, and continuing to push until those professionals might learn something from your work. Read `references/depth.md` for the full techniques and prompt.
+1. What would a top professional in this field do here that you are not asking for?
+2. What is the rawest material they would start from, instead of what has been summarized for you?
+3. Which specific methods and tools would they use?
+4. What, other than your own judgment, would show the result is correct?
 
-- **Use the same instruments as the best in the industry.** Prompting a model to act like a professional often changes vocabulary without changing method. Insist on the methods real experts use, such as databases and statistical models rather than markdown tables. You do not need to know which instruments they are; the model usually does.
-- **Pick unreasonable goals, and state that they are reasonable.** If a page should load in 5 seconds instead of 10, ask for 200 milliseconds. If the model thinks something is impossible, state that it is solvable and to keep going.
-- **Challenge what you know.** Many business beliefs are rough approximations. Give the model the raw data and ask it to check your assumptions adversarially.
-- **Produce new knowledge.** Once the model is inside the data, ask it to find blind spots. Have it predict on data it has not seen.
-- **Use an outside judge.** Do not ask the model to judge itself. Insist on outside validation, ideally a tool the model can run to get feedback immediately.
-
-When you are unsure how to start, use the deeper-version prompt in `references/depth.md`. It asks for a deeper version of the task rather than a bigger one.
+Ask for a deeper version of the task, not a bigger one.
 
 ## Range: bring in other fields
 
-Being ambitious in range means considering your work from the perspective of more fields than would have been economical before. Models make multi-agent systems easy to run, with multiple threads, orchestrators, or subagents, and bringing in additional fields can produce unexpectedly good results. This takes creativity. Read `references/range.md` for the full techniques.
+1. **Replace nouns with verbs.** A quarterly review is not "a deck". It is getting busy people to believe a story about cause and effect, and to decide under uncertainty, in thirty minutes. Verbs show which fields have something to contribute.
+2. **Assemble the team by action.** List the actions a strong team would take on this deliverable, then take them. For a deck that must be excellent, the actions include analysis, rigorous editing, and production quality. If it will be presented, add motion and audio design. Add adversarial review: research the position the way a short seller would, and check the figures the way a forensic accountant would.
+3. **Do the action, not the voice.** Carry out the research, testing, or production a field performs. Do not write in a field's style, and do not adopt its tone. The work is judged by what was done.
+4. **Give the work the tools it needs.** Range requires access: software that can be installed, the relevant data, and connections to other systems. Set this up before starting.
 
-- **Replace nouns with verbs.** A quarterly review is not "a deck". It is getting busy people to believe a story about cause and effect, and to decide under uncertainty, in thirty minutes. Verbs make it easier to see which fields offer a useful perspective.
-- **Assemble the crew.** Ask who a strong team for this deliverable would include, such as an analyst, a journalist, an editor, a motion or audio designer, and an adversarial red team like a short seller or a forensic accountant.
-- **Avoid role-play.** Role-play makes the transcript stranger without improving the result. Use the crew to find fields and techniques. Ask the model to do what the short seller does to research a position, not to write like one.
+## Speed
 
-Range depends on tooling. The model needs a computer on which it can install software, and access to relevant data, through MCP connectors or other means.
+Do the same work faster. Use it for every task where it applies. It needs no further steps.
 
-## Background
+## Why this matters
 
-Humans have always been held back by what they believe possible, and tend to trust themselves only within narrow disciplines. Psychology calls this self-efficacy, and research suggests it can be raised. Read `references/background.md` for the examples behind this.
+People have always been held back by what they believe is possible, and usually trust themselves only within a narrow field. Psychology calls this self-efficacy, and it can be raised. Specific, hard goals outperform "do your best". Once someone has done something, others do it too. Permission to fail often produces better results than trying very hard. See `references/background.md`.

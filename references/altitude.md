@@ -1,28 +1,23 @@
 # Altitude: worked example
 
-Scenario: an everyday office task. You are at Acme Inc, an imagined company, and need to put together the deck for the quarterly business review (QBR). You have a pile of data, and perhaps a template that only needs filling in. Each step below is more ambitious than the last.
+Scenario: a quarterly business review (QBR) deck for a company with a stack of data and a template.
 
 ## Step 1: understand the business, not the template
 
-Most reviews want to know what changed this quarter, why it changed, and what should be done about it. Do not just update the numbers in the template. Give the model as much data as you can, so it understands the business.
+Most reviews need to answer three things: what changed this quarter, why it changed, and what should be done about it. Give the work as much data as you can. Do not just update the numbers in the template.
 
-> Tell me what changed this quarter, why, and what we should do about it.
+Question to answer: What changed this quarter, why, and what should we do about it?
 
 ## Step 2: end with decisions
 
-Good meetings end with decisions. Ask the model to work out which decisions matter most given everything it has learned, and to start on each direction, with arguments for and against.
+Good meetings end with decisions. Identify the three most urgent decisions given everything you have learned. Work through a direction for each, with arguments for and against.
 
-> Work out which three decisions are most urgent in the face of everything you've learned, and start working on potential directions with for/against arguments.
+## Step 3: question the artifact
 
-## Step 3: question the artifact itself
+A QBR exists so leadership catches problems early and moves money and people to the right places. Ask whether a better method serves that purpose. Design it. Test it on your own history to show whether it would have caught problems sooner. Run it beside the current QBR for one quarter.
 
-QBRs come from a time when humans had to sift through data, work out what it meant, and decide whether the business should adjust. The review exists so leadership catches problems early and moves money and people to the right places. Ask whether a better mechanism exists for that purpose.
+## Notes
 
-> The review exists so leadership catches problems early and moves money and people to the right places. Design a better way to do that than a quarterly deck, show from our own history that it would have caught things sooner, and run it beside the current one for a quarter.
-
-## Notes on altitude
-
-- Altitude works best when you are after a concrete ultimate outcome. It works less well for creative endeavors.
-- A tell-tale sign that altitude applies: you would normally schedule meetings to discuss the work.
-- Current limits: "Claude, go make money" does not work for most businesses by itself. Models appear to handle higher levels of abstraction as they become more capable.
-- Durable workflows take the human out of the loop, so you do not have to update the model with each new task. Building one often requires changing your workflow. Example: to have the model keep an app crash-free, first make sure it can fetch crash reports, understand which app version maps to which commit, and access Windows, macOS, and Linux machines so it can independently reproduce and verify fixes.
+- Altitude works best for concrete outcomes. A sign that it applies: the work would normally be discussed in meetings.
+- Goals such as "make money" do not work by themselves. Name the measurable result.
+- Durable workflows take manual steering out of the loop. Example: to keep an app crash-free, make sure the work can fetch crash reports, map each app version to its source commit, and access Windows, macOS, and Linux machines to reproduce and verify fixes independently.

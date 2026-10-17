@@ -1,23 +1,26 @@
 # Range: techniques
 
-Being ambitious in range means considering your work from the perspective of different fields, more fields than would have been economical in the past. Heist movies do this: the first thirty minutes assemble a diverse cast of characters and talents. Multi-agent systems (multiple threads, orchestrators, or subagents) make it practical to ask a model to bring in additional fields.
-
-This takes creativity. The essay's example: a colleague used Blender to render interior designs, which the author had not considered for a 3D environment on a homepage, even though he had made video games before. Range is where the most unexpected results tend to come from.
+Range means working from several fields. Heist films do this: the first thirty minutes assemble a varied set of skills. Range often produces the most unexpected results. Example: an interior design project rendered in 3D by a tool from a different field.
 
 ## Replace nouns with verbs
 
-A technique from Tom Kelley and Jonathan Littman's *The Art of Innovation*. A quarterly review is not "a deck". It is getting busy people to believe a story about cause and effect, and to decide under uncertainty, in thirty minutes. Verbs make it easier for you and the model to see which fields might add something useful.
+From Tom Kelley and Jonathan Littman, *The Art of Innovation*. A quarterly review is not a deck. It is getting busy people to believe a story about cause and effect, and to decide under uncertainty, in thirty minutes. The verbs show which fields can help.
 
-## Assemble the crew
+## Assemble the team by action
 
-For a deck that has to be excellent, ask: what team would we put together? For production quality, the essay suggests an analyst, a journalist, and an editor. If the deck will be presented, add a motion and audio designer. Add an adversarial red team as well, such as a short seller and a forensic accountant.
+For a deck that must be excellent, list the actions a strong team would take:
 
-## Avoid role-play
+- Analysis of the data.
+- Rigorous editing for clarity and accuracy.
+- Motion and audio design, if the deck will be presented.
+- Adversarial review: research the opposing case the way a short seller researches a position, and check the figures the way a forensic accountant would.
 
-It is easy to engage in role-play by accident, which makes the transcript weirder without improving the outcome. Use the crew to find fields and techniques, but ask the model to do what the role does, not to write like it.
+Then carry out each action.
 
-> Do not ask the model to write like a short seller. Ask it to do what a short seller does to research their position.
+## Do the action, not the voice
 
-## Tooling requirement
+Do the research, testing, or production a field performs. Do not imitate the field's tone or style. Judge the result by what was done.
 
-All of these approaches assume the model has a computer where it can install software, and access to the relevant data, through MCP connectors or other means. The essay recommends using a tool that provides this.
+## Tools
+
+Range needs access: software you can install, the data that matters, and connections to other systems. Set these up first.
