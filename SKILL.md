@@ -1,59 +1,57 @@
 ---
 name: ambitious
-description: How to do work at a higher level of ambition across four dimensions - Speed, Altitude, Depth, and Range. Use this skill whenever a task should reach past its immediate request, when a result is generic, shallow, or limited to the obvious field, when a recurring process should run with less manual steering, or when someone asks for bigger, deeper, or more ambitious work. Do not use for simple questions or small edits.
+description: How to do work that is deeper, not just bigger. Use this skill whenever a task should go beyond its immediate request, whenever a result is generic, shallow, or limited to the obvious field, whenever a recurring process should run with less manual steering, or whenever someone asks for more ambitious, deeper, or higher-leverage work. Before starting, answer the four depth questions in writing and rewrite the request to match them. Do not use for simple questions or small edits.
 ---
 
-# Ambitious Work
+# Ambitious Work: A Deeper Version, Not a Bigger One
 
-Some work is done well by tools that can take on large outcomes. Most people never move past simple requests. This skill sets out four dimensions of ambition and the steps to take in each.
+Every ambitious task starts with the same question and the same four questions. Answer them in writing. Then rewrite the request so it asks for exactly what the answers name.
 
-- **Speed**: the same work in less time. This is the most common gain and needs little method, so it is not covered further.
-- **Altitude**: work at the level of the outcome, not the individual task.
-- **Depth**: work the way a field-leading expert would, one level below the task, on the underlying data, tools, and problems.
-- **Range**: draw on several fields, using knowledge, tools, and techniques the task does not obviously call for.
+> I want a deeper version of this task, not a bigger one. Before rewriting it:
+> 1. Say what a top professional in this field would do here that I'm not asking for.
+> 2. Name the rawest material they would start from instead of what has already been digested for me.
+> 3. Name the specific methods and tools they would use.
+> 4. Say what, other than you or me, would show the result is right.
+>
+> Then rewrite my prompt to ask for exactly that.
 
-Start by naming the dimensions that apply. Then work through them in the order below.
+## Question 0: what happens next?
 
-## Altitude: find the goal beyond the goal
+Before the four questions, answer the altitude question: what do I want to happen next? What is the goal beyond the goal? Name the outcome the task serves and the decision or process it feeds. If you cannot name a measurable result, do not start the task yet. See `references/altitude.md`.
 
-1. State the task. Then ask: what should happen next? What is the goal beyond the goal?
-2. Gather as much data about the situation as you can. Do not limit the work to filling in a template. For a review, the questions are: what changed, why did it change, and what should be done about it.
-3. If the work should end in decisions, identify the three most urgent decisions given everything you have learned. For each, work through directions, with arguments for and against.
-4. If the artifact exists to serve a purpose, design a better way to serve that purpose. Test it against your own history to show whether it would have caught problems sooner. Run it beside the current method for a period.
-5. Where the outcome recurs, build a workflow that removes manual steering. This often means changing the workflow itself: make sure the work can fetch its own inputs (for example, crash reports), map each version to its source commit, and access the machines or environments needed to reproduce and verify results.
+## Question 1: what would a top professional do that you are not asking for?
 
-Altitude fits concrete outcomes, especially work that would normally be discussed in meetings. It fits open creative work less well. "Make money" alone is not an outcome you can act on. Name the measurable result.
+List the steps an expert would take that the request leaves out. Keep the ones that change the outcome. Ask the expert's question too: what would they aim for, and what would they refuse to accept? See `references/depth.md` (Question 1) and `references/range.md` (other fields).
 
-## Depth: use the methods of the best
+## Question 2: what is the rawest material they would start from?
 
-Depth means using the tools, techniques, media, and knowledge that the best practitioners use, and continuing until those practitioners could learn something from the result.
+Name the source data, logs, original documents, or measurements. Work from those, not from summaries or dashboards that have already interpreted them. If only a summary is available, write down the raw source you still need. See `references/depth.md` (Question 2).
 
-1. **Use their instruments.** Use the methods experts use: databases and statistical tests, not tables that only look professional. You do not need to know which instruments they are; find out.
-2. **Set unreasonable targets and treat them as reasonable.** If a page should load in 5 seconds instead of 10, aim for 200 milliseconds. If something looks impossible, state that it is solvable and keep going.
-3. **Challenge what you know.** Start from the raw data, not summaries. Test each belief about the business or system against it. Where a belief fails, record that.
-4. **Produce new knowledge.** Look for blind spots. Build a simulation that reproduces the last year from your logs. Find the earliest signal of a problem you are not yet watching, and confirm it on data you did not use to find it.
-5. **Use an outside judge.** Do not treat the work as its own check. Verify results with something external: a test suite, an independent dataset, a tool that gives feedback immediately, or a reviewer who did not produce the work.
+## Question 3: which specific methods and tools would they use?
 
-Before you begin, answer four questions, then write the task to match the answers:
+Name the instruments of the field: databases, statistical tests, simulations, load tests, threat assessments, reproduction scripts. Use the real method. A table that looks professional is not a method. Find out which instruments experts use if you do not know. See `references/depth.md` (Question 3) and `references/range.md` (tools).
 
-1. What would a top professional in this field do here that you are not asking for?
-2. What is the rawest material they would start from, instead of what has been summarized for you?
-3. Which specific methods and tools would they use?
-4. What, other than your own judgment, would show the result is correct?
+## Question 4: what, other than you or me, would show the result is right?
 
-Ask for a deeper version of the task, not a bigger one.
+Name an outside check that does not depend on the work's own judgment: a test suite, a held-out dataset, a tool that gives immediate feedback, or a reviewer who did not produce the work. If no such check exists, build the smallest one that could catch a wrong result, and write down what it cannot catch. See `references/depth.md` (Question 4).
 
-## Range: bring in other fields
+## Rewriting the request
 
-1. **Replace nouns with verbs.** A quarterly review is not "a deck". It is getting busy people to believe a story about cause and effect, and to decide under uncertainty, in thirty minutes. Verbs show which fields have something to contribute.
-2. **Assemble the team by action.** List the actions a strong team would take on this deliverable, then take them. For a deck that must be excellent, the actions include analysis, rigorous editing, and production quality. If it will be presented, add motion and audio design. Add adversarial review: research the position the way a short seller would, and check the figures the way a forensic accountant would.
-3. **Do the action, not the voice.** Carry out the research, testing, or production a field performs. Do not write in a field's style, and do not adopt its tone. The work is judged by what was done.
-4. **Give the work the tools it needs.** Range requires access: software that can be installed, the relevant data, and connections to other systems. Set this up before starting.
+When the five answers are written, rewrite the request so it asks for them. Keep the original goal. Add the expert steps, the raw inputs, the methods, and the outside check. Add nothing the answers do not require.
 
 ## Speed
 
-Do the same work faster. Use it for every task where it applies. It needs no further steps.
+Do the same work in less time. It needs no further method.
 
-## Why this matters
+## Checklist
 
-People have always been held back by what they believe is possible, and usually trust themselves only within a narrow field. Psychology calls this self-efficacy, and it can be raised. Specific, hard goals outperform "do your best". Once someone has done something, others do it too. Permission to fail often produces better results than trying very hard. See `references/background.md`.
+- [ ] Question 0 answered: the goal beyond the goal is named and measurable.
+- [ ] Questions 1 to 4 answered in writing.
+- [ ] Request rewritten to ask for those answers.
+- [ ] Raw source named, or its absence written down.
+- [ ] Outside check named, and what it cannot catch written down.
+- [ ] Result checked by something other than the work itself.
+
+## Background
+
+Why these questions work, and what the essay says about human limits: `references/background.md`.
