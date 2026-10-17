@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://storage.ghost.io/c/89/e0/89e08557-681a-40be-8264-278bf46d6b25/content/images/size/w2000/2026/10/modo_de_volar_a_way_of_flying_1951.10.55-1.jpg" alt="Francisco Goya, Modo de volar (A Way of Flying)" width="100%">
+  <img src="assets/banner.jpg" alt="Francisco Goya, Modo de volar (A Way of Flying)" width="100%">
 </p>
 
 <h1 align="center">ambitious-skill</h1>
@@ -50,9 +50,12 @@ The installer copies `SKILL.md` and `references/`, and writes a `.ambitious-skil
 
 ```
 SKILL.md                  The deeper-version questions (Question 0 and Questions 1-4)
+assets/banner.jpg         Banner image (Francisco Goya, Modo de volar)
+references/workflow.md    Research, investigate, plan, implement: gates for every dimension
 references/altitude.md    Question 0: the goal beyond the goal
 references/depth.md       Questions 1-4 in detail
 references/range.md       Other fields, mapped to Questions 1, 3, and 4
+references/speed.md       Same work in less time, held to the four questions
 references/background.md  Why the questions work, and the essay's examples
 bin/cli.js                Zero-dependency installer
 test/                     Installer tests and content rules (npm test)
