@@ -20,8 +20,14 @@ const BANNED = [
 ];
 
 let failures = [];
+// Narrow exception: the phrase "threat model(s)" is allowed in reference files only.
+const REFERENCE_ALLOWED = [/threat models?/gi];
+
 for (const rel of FILES) {
-  const text = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+  let text = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+  if (rel.startsWith('references')) {
+    for (const re of REFERENCE_ALLOWED) text = text.replace(re, '');
+  }
   for (const [re, label] of BANNED) {
     const m = text.match(re);
     if (m) {

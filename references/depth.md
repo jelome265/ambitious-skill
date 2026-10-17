@@ -21,7 +21,7 @@ Start from the raw data: event logs, account records, support tickets, original 
 
 Use the instruments the best practitioners use: databases, statistical tests, simulations, reproduction scripts, load tests. The essay's point is about method, not vocabulary. A report written in a professional tone that uses markdown tables has not used a professional method.
 
-- Find out which instruments experts use, then use them.
+- Use the instruments the field uses: for security, a threat model and a reproduction; for statistics, a held-out test. Find out which instruments experts use, then use them.
 - Insist on the real method when a shortcut appears.
 
 ## Question 4: what, other than you or me, would show the result is right?
