@@ -26,3 +26,14 @@ The adversarial review is the outside check for this range. Its findings must be
 ## Tools
 
 Range requires access before it can start: software that can be installed, the relevant data, and connections to other systems. Set these up first, and write down what is still missing.
+
+## Required phases
+
+This dimension follows `references/workflow.md`. Its specific checks are:
+
+- **Research:** the fields that map to the verbs of the deliverable. Name a source for each field's method.
+- **Investigate:** test each proposed action against the raw data. Record the actions that add nothing.
+- **Plan:** list the actions, each with its method and tool. Set up the tools before the first action.
+- **Implement:** carry out each action in turn. Record each result. Run the adversarial review against the raw data, not on the review's word.
+
+**Gate:** every action has a recorded result, and the tools needed for each are in place.

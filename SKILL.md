@@ -35,13 +35,17 @@ Name the instruments of the field: databases, statistical tests, simulations, lo
 
 Name an outside check that does not depend on the work's own judgment: a test suite, a held-out dataset, a tool that gives immediate feedback, or a reviewer who did not produce the work. If no such check exists, build the smallest one that could catch a wrong result, and write down what it cannot catch. See `references/depth.md` (Question 4).
 
+## Working through the phases
+
+Every dimension runs through research, investigate, plan, and implement, in that order, with a gate at the end of each phase. See `references/workflow.md`.
+
 ## Rewriting the request
 
 When the five answers are written, rewrite the request so it asks for them. Keep the original goal. Add the expert steps, the raw inputs, the methods, and the outside check. Add nothing the answers do not require.
 
 ## Speed
 
-Do the same work in less time. It needs no further method.
+Do the same work in less time, held to the same four answers. See `references/speed.md`.
 
 ## Checklist
 
