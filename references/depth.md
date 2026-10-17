@@ -30,13 +30,9 @@ Use the instruments the best practitioners use: databases, statistical tests, si
 - If no outside check exists, build the smallest check that could catch a wrong result, and write down what it cannot catch.
 - Confirm predictions on data that was not used to produce them.
 
-## Required phases
+## Suggested order
 
-This dimension follows `references/workflow.md`. Its specific checks are:
-
-- **Research:** Question 1 (expert steps) and Question 2 (raw sources), each with a named source.
-- **Investigate:** test each belief from Question 1 against the raw data from Question 2. Record each failure.
+- **Research:** Question 1 (expert steps) and Question 2 (raw sources), each with a source named.
+- **Investigate:** test each belief from Question 1 against the raw data from Question 2. Note each failure.
 - **Plan:** rewrite the request to ask for the expert steps, raw inputs, methods, and outside check. Name the check that decides the result.
-- **Implement:** run the methods from Question 3 and the check from Question 4. Record the result.
-
-**Gate:** every belief has a recorded result, and the outside check passes or the failure is recorded and returned to Investigate.
+- **Implement:** run the methods from Question 3 and the check from Question 4. Note the result.

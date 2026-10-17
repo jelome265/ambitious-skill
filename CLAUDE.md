@@ -20,7 +20,7 @@ The phrase "threat model" or "threat models" is allowed in `references/` only. D
 
 ## Workflow
 
-- Research, investigate, plan, then implement, in that order. Each phase needs its gate met before the next starts.
+- For larger or riskier work, research, investigate, plan, then implement is the suggested order. These are guidance, not checkpoints. Do not stop work because a phase is incomplete.
 - Before claiming a change is correct, run `npm test` and report the result.
 - Do not claim a push succeeded until `git ls-remote` shows the remote SHA matches local.
 - Do not wait for CI results. Push, report the commit SHA, and move on. Check run status only when asked.

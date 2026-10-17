@@ -1,6 +1,6 @@
 'use strict';
-// Enforces that every dimension reference follows the four phases,
-// and that SKILL.md links to each reference and to the workflow.
+// Enforces that every dimension reference names the four phases as a suggested
+// order (guidance, not gates), and that SKILL.md links to each reference and to the workflow.
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
@@ -19,7 +19,9 @@ for (const file of DIMENSIONS) {
       `references/${file} is missing the ${phase} phase`
     );
   }
-  assert.ok(/gate/i.test(text), `references/${file} has no gate`);
+  assert.ok(/suggested order/i.test(text), `references/${file} has no "Suggested order" section`);
+  assert.ok(!/\bgates?\b/i.test(text), `references/${file} must not use gate language`);
+  assert.ok(!/required phases|stop rules?/i.test(text), `references/${file} must not force phases`);
   assert.ok(skill.includes(`references/${file}`), `SKILL.md does not link references/${file}`);
 }
 

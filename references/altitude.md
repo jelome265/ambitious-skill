@@ -39,13 +39,9 @@ Example: to keep an app crash-free, the work must be able to reproduce a crash o
 
 Altitude fits concrete outcomes that would normally be discussed in meetings. It fits open creative work less well. "Make money" alone is not an outcome: name the measurable result first.
 
-## Required phases
+## Suggested order
 
-This dimension follows `references/workflow.md`. Its specific checks are:
-
-- **Research:** the outcome, the decision it feeds, and the raw data that measures it. Name each source.
+- **Research:** the outcome, the decision it feeds, and the raw data that measures it.
 - **Investigate:** whether the current artifact serves the outcome. Test that belief against the history.
 - **Plan:** the durable workflow, with each input, version mapping, and environment named.
-- **Implement:** build the workflow and run it. Verify one recurrence by the outside check, not by the workflow's own report.
-
-**Gate:** the outcome is measurable, and the outside check is recorded.
+- **Implement:** build the workflow and run it. Check one recurrence with the outside check, not with the workflow's own report.
