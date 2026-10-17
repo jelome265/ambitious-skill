@@ -52,7 +52,7 @@ The installer copies `SKILL.md` and `references/`, and writes a `.ambitious-skil
 ```
 SKILL.md                  The deeper-version questions (Question 0 and Questions 1-4)
 assets/banner.jpg         Banner image (Francisco Goya, Modo de volar)
-references/workflow.md    Research, investigate, plan, implement: gates for every dimension
+references/workflow.md    Research, investigate, plan, implement: suggested order
 references/altitude.md    Question 0: the goal beyond the goal
 references/depth.md       Questions 1-4 in detail
 references/range.md       Other fields, mapped to Questions 1, 3, and 4

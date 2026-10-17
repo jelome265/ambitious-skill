@@ -17,7 +17,7 @@ Every ambitious task starts with the same question and the same four questions. 
 
 ## Question 0: what happens next?
 
-Before the four questions, answer the altitude question: what do I want to happen next? What is the goal beyond the goal? Name the outcome the task serves and the decision or process it feeds. If you cannot name a measurable result, do not start the task yet. See `references/altitude.md`.
+Before the four questions, answer the altitude question: what do I want to happen next? What is the goal beyond the goal? Name the outcome the task serves and the decision or process it feeds. Naming a measurable result helps. If you cannot, name the closest proxy and say that it is a proxy. See `references/altitude.md`.
 
 ## Question 1: what would a top professional do that you are not asking for?
 
@@ -37,7 +37,7 @@ Name an outside check that does not depend on the work's own judgment: a test su
 
 ## Working through the phases
 
-Every dimension runs through research, investigate, plan, and implement, in that order, with a gate at the end of each phase. See `references/workflow.md`.
+For larger or riskier work, research, investigate, plan, and implement is a suggested order. See `references/workflow.md`.
 
 ## Rewriting the request
 
@@ -47,14 +47,6 @@ When the five answers are written, rewrite the request so it asks for them. Keep
 
 Do the same work in less time, held to the same four answers. See `references/speed.md`.
 
-## Checklist
-
-- [ ] Question 0 answered: the goal beyond the goal is named and measurable.
-- [ ] Questions 1 to 4 answered in writing.
-- [ ] Request rewritten to ask for those answers.
-- [ ] Raw source named, or its absence written down.
-- [ ] Outside check named, and what it cannot catch written down.
-- [ ] Result checked by something other than the work itself.
 
 ## Background
 
