@@ -1,0 +1,33 @@
+name: Delete closed branch
+
+# Merged PRs are handled by the repository setting delete_branch_on_merge.
+# This covers PRs closed without merging. Branches from forks, and the
+# default branch, are never deleted.
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  delete-branch:
+    if: >-
+      github.event.pull_request.merged == false &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.head.ref != github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete head branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          set -euo pipefail
+          if [ "$BRANCH" = "main" ]; then
+            echo "Refusing to delete main"; exit 1
+          fi
+          gh api -X DELETE "repos/${REPO}/git/refs/heads/${BRANCH}"
+          echo "Deleted ${BRANCH}"
