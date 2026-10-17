@@ -7,6 +7,7 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/ambitious-skill"><img src="https://img.shields.io/npm/v/ambitious-skill?label=npm&color=cb3837" alt="npm version"></a>
   <a href="https://www.npmjs.com/package/ambitious-skill"><img src="https://img.shields.io/npm/dm/ambitious-skill?color=cb3837" alt="npm downloads"></a>
+  <a href="https://github.com/jelome265/ambitious-skill/actions/workflows/ci.yml"><img src="https://github.com/jelome265/ambitious-skill/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="https://github.com/jelome265/ambitious-skill/releases"><img src="https://img.shields.io/github/v/release/jelome265/ambitious-skill?include_prereleases&label=release" alt="GitHub release"></a>
   <a href="https://github.com/jelome265/ambitious-skill/blob/main/LICENSE"><img src="https://img.shields.io/github/license/jelome265/ambitious-skill" alt="License: Apache-2.0"></a>
   <img src="https://img.shields.io/node/v/ambitious-skill?color=339933" alt="Node.js >= 18">
