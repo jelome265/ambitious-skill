@@ -8,6 +8,8 @@ This file governs how Claude works in this repository.
 - Every reference file must follow `SKILL.md` and `references/workflow.md`. Do not add content that SKILL.md does not call for.
 - The skill instructs on how to do the work. It must not address the AI, assign roles, or describe the AI's behavior.
 
+- The plugin's skill copy in `plugins/ambitious/skills/ambitious/` is generated. Edit the root `SKILL.md` and `references/`, then run `npm run sync:plugin`. Do not edit the copy by hand.
+
 ## Banned terms
 
 These must not appear in `SKILL.md`, or in any file under `references/`:

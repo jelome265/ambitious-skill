@@ -1,0 +1,14 @@
+{
+  "name": "ambitious-skill-marketplace",
+  "description": "Plugins for working more ambitiously with models, from the ambitious-skill project.",
+  "owner": {
+    "name": "jelome265"
+  },
+  "plugins": [
+    {
+      "name": "ambitious",
+      "source": "./plugins/ambitious",
+      "description": "Work at a higher level of ambition: answer the four depth questions and rewrite the request before doing the work."
+    }
+  ]
+}
