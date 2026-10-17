@@ -10,7 +10,7 @@
   <a href="https://github.com/jelome265/ambitious-skill/actions/workflows/ci.yml"><img src="https://github.com/jelome265/ambitious-skill/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="https://github.com/jelome265/ambitious-skill/releases"><img src="https://img.shields.io/github/v/release/jelome265/ambitious-skill?include_prereleases&label=release" alt="GitHub release"></a>
   <a href="https://github.com/jelome265/ambitious-skill/blob/main/LICENSE"><img src="https://img.shields.io/github/license/jelome265/ambitious-skill" alt="License: Apache-2.0"></a>
-  <img src="https://img.shields.io/node/v/ambitious-skill?color=339933" alt="Node.js >= 18">
+  <img src="https://img.shields.io/node/v/ambitious-skill?color=339933" alt="Node.js >= 22">
   <a href="https://github.com/jelome265/ambitious-skill/commits/main"><img src="https://img.shields.io/github/last-commit/jelome265/ambitious-skill" alt="Last commit"></a>
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs welcome">
 </p>
@@ -24,7 +24,7 @@
 
 ## Install
 
-Requires Node.js 18 or later.
+Requires Node.js 22 or later.
 
 ```sh
 npx ambitious-skill                 # ~/.claude/skills/ambitious (all projects)
