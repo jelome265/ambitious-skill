@@ -1,79 +1,55 @@
 ---
 name: ambitious
-description: Raise the ambition of AI-assisted work along four axes - Altitude (optimize for the outcome beyond the task), Depth (use the methods and raw data a top practitioner would use), Range (bring in perspectives from other fields), and Speed. Use this skill whenever the user asks to "be more ambitious", "think bigger", "go deeper", wants a higher-leverage approach to a task, is stuck with shallow or generic model output, is planning a multi-step AI-driven project, asks how to get more out of Claude or another model, or wants a task turned into a durable workflow the model can run and verify itself. Also use when the user says a result "feels generic", "isn't good enough", or "just fills in the template". Do not use for simple one-step lookups or trivial edits where scope expansion would be unwanted.
+description: A tutorial for being more ambitious with models across four types - Speed, Altitude, Depth, and Range. Use this skill whenever the user wants to get more out of an AI model, says they are not being ambitious enough, wants bigger or deeper results instead of fill-in-the-template output, asks for help with a recurring business or engineering process, wants a model to work at the level of an outcome rather than a single task, or asks how to use models with more expert methods or cross-disciplinary perspective. Also use when a model's output feels generic, shallow, or limited to the obvious field. Do not use for simple one-step questions or small edits.
 ---
 
-# Ambitious
+# Being More Ambitious
 
-This skill helps turn a narrow request into a higher-leverage piece of work. It is based on the four-axis framework in Felix Rieseberg's "How to be more ambitious: A tutorial for humans with models" (October 2026). Read `references/framework.md` for the full model and `references/prompts.md` for reusable prompt patterns.
+Models are astounding in some directions and inadequate in others. Many people never get past simple tasks, so this skill walks through ways to be more ambitious. There are four types of ambition: Speed, Altitude, Depth, and Range.
 
-The core rule: **ambition must not reduce correctness, safety, or verifiability.** Expanding scope without an external check is a failure mode, not an improvement.
+- **Speed**: the same work in less time. This is the bread and butter of AI's value, and it needs little creativity in how you approach the model, so this skill does not cover it further.
+- **Altitude**: going up in abstraction, and considering the outcome rather than the individual task.
+- **Depth**: considering a task the way a field-leading expert would. Instead of working at the task's layer, go one level deeper and touch the underlying data, tools, and problems.
+- **Range**: drawing on multiple fields rather than only the one the task appears to need, using knowledge, tools, and techniques you would not normally reach for.
 
-## Step 1: Classify the request
+The method is not specific to one model.
 
-Before doing anything, decide which axes apply. Ask at most one clarifying question if the goal is unclear; otherwise proceed and state assumptions.
+## Altitude: find the goal beyond the goal
 
-| Axis | Question it answers | Signal that it applies |
-|------|--------------------|-----------------------|
-| Altitude | What outcome is this for? | The task is one of many in a recurring process, or feeds a decision |
-| Depth | What would a top expert start from? | The output is analytical, technical, or high-stakes |
-| Range | Which other fields have a useful perspective? | The problem is cross-functional, or current output is one-dimensional |
-| Speed | Can the same work be done faster? | Usually already covered; do not dwell on it |
+When you give a model a task, it executes your best guess at how to reach the outcome you want. To be more ambitious in altitude, ask: what do you want to happen next? What is the goal beyond the goal?
 
-Name the axes you are using in one line before starting.
+Work through a task in steps, getting more ambitious at each step. Read `references/altitude.md` for the full worked example.
 
-## Step 2: Altitude - find the goal beyond the goal
+- Give the model as much data as you can, so it understands your business, rather than letting it only update the numbers in a template. Ask what changed, why, and what to do about it.
+- If the meeting should end with decisions, ask the model to work out the most urgent decisions and begin working on directions for and against each.
+- If the artifact exists to achieve a purpose, ask the model to design a better way to achieve that purpose, show from your own history that it would have caught problems sooner, and run it alongside the current approach for a period.
 
-1. State the immediate task in one sentence.
-2. State the outcome the task serves in one sentence. Ask: what happens after this is done?
-3. If the outcome is recurring or measurable, propose a workflow that lets the model fetch its own inputs, check results, and report status without re-prompting for each task.
-4. Identify what the workflow needs in order to run: data access, a way to reproduce results, a way to verify them. List missing access explicitly rather than assuming it.
+Altitude works best when you are after a concrete ultimate outcome, and less well for creative work. A good sign that altitude applies is that you would normally hold meetings about the work. Models can operate at higher levels of abstraction as they become more capable, though some goals are still out of reach: "make money" by itself does not work for most businesses yet.
 
-Do not invent an outcome the user did not signal. If the outcome is unclear, state your inferred version and mark it as an assumption.
+Altitude also produces durable workflows that take the human out of the loop. Doing this often means changing the workflow itself. For example, to keep an app crash-free, the model first needs to fetch crash reports, map app versions to commits, and have access to the platforms it must test on, so it can reproduce and verify fixes on its own.
 
-## Step 3: Depth - work from the rawest material
+## Depth: use what the best professionals use
 
-1. Name what a top practitioner in this field would do that the current request does not ask for.
-2. Identify the rawest input available (raw logs, source data, original documents) rather than summaries of it.
-3. Name the specific methods and tools that field uses. Prefer the real instrument (a statistical test, a schema validator, a threat-modeling method such as STRIDE, a load test) over a markdown table with a professional tone.
-4. Challenge assumptions adversarially using the raw data. Report the assumptions that did not survive.
-5. Define at least one check that does not depend on the model's own judgment: a test suite, a validator, a reproduction, a human reviewer, or an independent data source.
+Sometimes you want a task executed really well. Being ambitious in depth means pushing the model to use the tools, techniques, media, and knowledge of the best professionals in the field, and continuing to push until those professionals might learn something from your work. Read `references/depth.md` for the full techniques and prompt.
 
-Stated goals should be verifiable requirements. Replace "make it fast" with a measurable target tied to a stated constraint, and state how it will be measured. Do not set aggressive numbers merely to provoke a better answer.
+- **Use the same instruments as the best in the industry.** Prompting a model to act like a professional often changes vocabulary without changing method. Insist on the methods real experts use, such as databases and statistical models rather than markdown tables. You do not need to know which instruments they are; the model usually does.
+- **Pick unreasonable goals, and state that they are reasonable.** If a page should load in 5 seconds instead of 10, ask for 200 milliseconds. If the model thinks something is impossible, state that it is solvable and to keep going.
+- **Challenge what you know.** Many business beliefs are rough approximations. Give the model the raw data and ask it to check your assumptions adversarially.
+- **Produce new knowledge.** Once the model is inside the data, ask it to find blind spots. Have it predict on data it has not seen.
+- **Use an outside judge.** Do not ask the model to judge itself. Insist on outside validation, ideally a tool the model can run to get feedback immediately.
 
-## Step 4: Range - bring in other disciplines
+When you are unsure how to start, use the deeper-version prompt in `references/depth.md`. It asks for a deeper version of the task rather than a bigger one.
 
-1. Convert the nouns in the task into verbs describing what the output must accomplish. For example, "a report" becomes "persuading a decision-maker of a cause-and-effect claim under uncertainty."
-2. From those verbs, select 2 to 4 relevant disciplines or roles. Good candidates include: an analyst, an editor, a red team, a forensic accountant, a compliance reviewer, a site reliability engineer, a threat modeler.
-3. Use each perspective to do its work, not to imitate its voice. Ask for the actions a short seller would take to research a position, not for text written "in the style of" one.
-4. Keep the number of perspectives proportionate. More roles add cost and contradiction; use only those that change the outcome.
+## Range: bring in other fields
 
-## Step 5: Verify before reporting
+Being ambitious in range means considering your work from the perspective of more fields than would have been economical before. Models make multi-agent systems easy to run, with multiple threads, orchestrators, or subagents, and bringing in additional fields can produce unexpectedly good results. This takes creativity. Read `references/range.md` for the full techniques.
 
-Before presenting any result under this skill:
+- **Replace nouns with verbs.** A quarterly review is not "a deck". It is getting busy people to believe a story about cause and effect, and to decide under uncertainty, in thirty minutes. Verbs make it easier to see which fields offer a useful perspective.
+- **Assemble the crew.** Ask who a strong team for this deliverable would include, such as an analyst, a journalist, an editor, a motion or audio designer, and an adversarial red team like a short seller or a forensic accountant.
+- **Avoid role-play.** Role-play makes the transcript stranger without improving the result. Use the crew to find fields and techniques. Ask the model to do what the short seller does to research a position, not to write like one.
 
-- Confirm the outcome from Step 2 is actually addressed, not just the immediate task.
-- Confirm at least one check from Step 3.5 was run, or state explicitly that none was possible and why.
-- Separate in the response: facts (verified or sourced), assumptions, and open risks.
-- Do not claim a result is correct because the model produced it. Say what would show it is correct.
+Range depends on tooling. The model needs a computer on which it can install software, and access to relevant data, through MCP connectors or other means.
 
-## Output format
+## Background
 
-Unless the user asks for something else, respond with:
-
-1. **Axes used** - one line.
-2. **Goal beyond the goal** - one or two sentences (Altitude).
-3. **Work** - the deliverable, produced at the depth from Step 3.
-4. **Verification** - the checks run, and the checks that could not be run.
-5. **Assumptions and risks** - short bullets.
-
-For large deliverables, write them as files and present them, rather than inlining them.
-
-## Guardrails
-
-- Do not roleplay personas as a substitute for doing the work. Ask for actions, not voices.
-- Do not expand scope into areas the user did not ask about without saying so and offering the option.
-- Do not present unsourced figures, names, or events as fact. Verify or flag them.
-- Do not let the model grade its own output as the only check.
-- For security, compliance, financial, or medical content, prefer the verifiable path over the ambitious one, and state the risk.
-- If the user only wants a quick answer, skip the framework and answer directly.
+Humans have always been held back by what they believe possible, and tend to trust themselves only within narrow disciplines. Psychology calls this self-efficacy, and research suggests it can be raised. Read `references/background.md` for the examples behind this.
