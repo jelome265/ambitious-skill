@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.jpg" alt="Francisco Goya, Modo de volar (A Way of Flying)" width="100%">
+  <img src="https://raw.githubusercontent.com/jelome265/ambitious-skill/main/assets/banner.jpg" alt="Francisco Goya, Modo de volar (A Way of Flying)" width="100%">
 </p>
 
 <h1 align="center">ambitious-skill</h1>
