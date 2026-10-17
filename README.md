@@ -49,11 +49,11 @@ The installer copies `SKILL.md` and `references/`, and writes a `.ambitious-skil
 ## What is inside
 
 ```
-SKILL.md                  Workflow for the four dimensions
-references/altitude.md    Worked example and steps
-references/depth.md       Methods, targets, outside judge, pre-start questions
-references/range.md       Nouns to verbs, team by action, tools
-references/background.md  Self-efficacy and the examples from the essay
+SKILL.md                  The deeper-version questions (Question 0 and Questions 1-4)
+references/altitude.md    Question 0: the goal beyond the goal
+references/depth.md       Questions 1-4 in detail
+references/range.md       Other fields, mapped to Questions 1, 3, and 4
+references/background.md  Why the questions work, and the essay's examples
 bin/cli.js                Zero-dependency installer
 test/                     Installer tests and content rules (npm test)
 ```

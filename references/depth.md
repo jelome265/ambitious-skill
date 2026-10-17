@@ -1,36 +1,31 @@
-# Depth: worked example and checklist
+# Depth: the four questions in detail
 
-Scenario: a quarterly business review where the company has user churn (customers lost over time).
+The essay's depth prompt has four questions. Each section below takes one question and lists what to do with it. The essay's techniques are placed under the question they serve.
 
-## Instruments
+## Question 1: what would a top professional do that you are not asking for?
 
-Use the methods the best data scientists and statisticians use: databases and statistical tests. A markdown table in a professional tone is not a method. Find out which instruments experts use and use them.
+Expert steps the request usually leaves out:
 
-## Targets
+- **Set demanding targets.** An expert aims high and treats the target as achievable. A page that loads in 10 seconds should aim for 200 milliseconds. If the target looks impossible, state that it is solvable and keep working toward it.
+- **List the alternative explanations.** For a churn review, an expert does not accept "customers leave because of onboarding." They list the other explanations and test each.
+- **Keep going past the first result.** Look for the blind spots that no one has checked yet.
 
-Set demanding targets and treat them as achievable. A website that loads in 10 seconds should aim for 200 milliseconds. If something seems impossible, say it is solvable and keep going.
+## Question 2: what is the rawest material they would start from?
 
-## Challenge what you know
+Start from the raw data: event logs, account records, support tickets, original measurements. Summaries and dashboards are interpretations. Use them to check your work, not as the starting point.
 
-Many business beliefs are rough approximations. Start from the raw data and test each belief against it.
+- **Challenge what you know.** Take each belief about the business or system and test it against the raw data. Example belief: churn is an onboarding problem. Reproduce that from the raw data. Record where it fails.
+- **Produce new knowledge.** Build a simulation of customers that reproduces the last year from the logs. Find the earliest signal of churn you do not yet monitor. Confirm it predicts on data you did not use to find it.
 
-Example belief: churn is an onboarding problem. Reproduce that from the raw data, and record where it fails.
+## Question 3: which specific methods and tools would they use?
 
-## Produce new knowledge
+Use the instruments the best practitioners use: databases, statistical tests, simulations, reproduction scripts, load tests. The essay's point is about method, not vocabulary. A report written in a professional tone that uses markdown tables has not used a professional method.
 
-Look for blind spots. Build a simulation of customers that reproduces the last year from the logs. Find the earliest signal of churn you are not yet monitoring. Confirm it predicts on data you did not use to find it.
+- Use the instruments the field uses: for security, a threat model and a reproduction; for statistics, a held-out test. Find out which instruments experts use, then use them.
+- Insist on the real method when a shortcut appears.
 
-## Outside judge
+## Question 4: what, other than you or me, would show the result is right?
 
-Do not treat the work as its own check. Verify results with something external: a test suite, an independent dataset, a tool that gives immediate feedback, or a reviewer who did not produce the work.
-
-## Before you begin
-
-Answer these four questions, then write the task to match:
-
-1. What would a top professional in this field do here that you are not asking for?
-2. What is the rawest material they would start from?
-3. Which specific methods and tools would they use?
-4. What, other than your own judgment, would show the result is correct?
-
-Then ask for a deeper version of the task, not a bigger one.
+- **Use an outside judge.** Do not treat the work as its own check. Use a test suite, a held-out dataset, a tool that gives immediate feedback, or a reviewer who did not produce the work.
+- If no outside check exists, build the smallest check that could catch a wrong result, and write down what it cannot catch.
+- Confirm predictions on data that was not used to produce them.

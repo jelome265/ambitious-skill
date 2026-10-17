@@ -1,23 +1,40 @@
-# Altitude: worked example
+# Question 0: what happens next?
 
-Scenario: a quarterly business review (QBR) deck for a company with a stack of data and a template.
+Source: the essay's altitude section asks: what do you want to happen next? What is the goal beyond the goal?
 
-## Step 1: understand the business, not the template
+## Answer it in writing
 
-Most reviews need to answer three things: what changed this quarter, why it changed, and what should be done about it. Give the work as much data as you can. Do not just update the numbers in the template.
+- The task: one sentence.
+- The outcome the task serves: one sentence, measurable if possible.
+- The decision or process that uses the outcome: one sentence.
+- What success looks like: the check you would run to know.
 
-Question to answer: What changed this quarter, why, and what should we do about it?
+If the outcome is not measurable, state the closest measurable proxy and say that it is a proxy.
 
-## Step 2: end with decisions
+## Worked example: a quarterly business review
 
-Good meetings end with decisions. Identify the three most urgent decisions given everything you have learned. Work through a direction for each, with arguments for and against.
+Scenario: a company with a stack of data and a template for its quarterly review.
 
-## Step 3: question the artifact
+- Task: fill the review deck.
+- Outcome: leadership catches problems early and moves money and people to the right places.
+- Decision: which problems to act on this quarter.
 
-A QBR exists so leadership catches problems early and moves money and people to the right places. Ask whether a better method serves that purpose. Design it. Test it on your own history to show whether it would have caught problems sooner. Run it beside the current QBR for one quarter.
+Answer Questions 1 to 4 against that outcome, not against the template. Then rewrite the request. The rewritten request asks what changed this quarter, why it changed, and what should be done about it, using all the data available, not only the numbers already in the template.
 
-## Notes
+## Ask whether the artifact should exist
 
-- Altitude works best for concrete outcomes. A sign that it applies: the work would normally be discussed in meetings.
-- Goals such as "make money" do not work by themselves. Name the measurable result.
-- Durable workflows take manual steering out of the loop. Example: to keep an app crash-free, make sure the work can fetch crash reports, map each app version to its source commit, and access Windows, macOS, and Linux machines to reproduce and verify fixes independently.
+If the artifact (the deck) exists only because the process needs it, ask whether a better way serves the purpose. Design that way. Test it against your own history to see whether it would have caught problems sooner. Run it beside the current method for one period.
+
+## Durable workflows
+
+When the outcome recurs, the task should stop needing manual steering. Build the conditions for that:
+
+- The work can fetch its own inputs (for example, crash reports).
+- Each version maps to its source commit.
+- The work can reach the machines or environments needed to reproduce and verify results on its own.
+
+Example: to keep an app crash-free, the work must be able to reproduce a crash on Windows, macOS, and Linux and verify the fix on each.
+
+## Fit
+
+Altitude fits concrete outcomes that would normally be discussed in meetings. It fits open creative work less well. "Make money" alone is not an outcome: name the measurable result first.
