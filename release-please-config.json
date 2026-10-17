@@ -6,7 +6,14 @@
     ".": {
       "package-name": "ambitious-skill",
       "changelog-path": "CHANGELOG.md",
-      "release-as": "0.1.0"
+      "release-as": "0.1.0",
+      "extra-files": [
+        {
+          "type": "json",
+          "path": "plugins/ambitious/.claude-plugin/plugin.json",
+          "jsonpath": "$.version"
+        }
+      ]
     }
   }
 }

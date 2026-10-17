@@ -38,6 +38,17 @@ Start a new session after installing so the skill loads.
 
 The installer copies `SKILL.md` and `references/`, and writes a `.ambitious-skill.json` marker. It never overwrites or deletes a directory it did not create.
 
+## Install as a Claude plugin
+
+In Claude Code:
+
+```
+/plugin marketplace add jelome265/ambitious-skill
+/plugin install ambitious@ambitious-skill-marketplace
+```
+
+The plugin is in `plugins/ambitious/`. Its skill copy is generated from the root `SKILL.md` and `references/` with `npm run sync:plugin`. The test suite fails if the two differ.
+
 ## The four dimensions
 
 | Dimension | What it means |
