@@ -43,6 +43,12 @@ For larger or riskier work, research, investigate, plan, and implement is a sugg
 
 When the five answers are written, rewrite the request so it asks for them. Keep the original goal. Add the expert steps, the raw inputs, the methods, and the outside check. Add nothing the answers do not require.
 
+## Scope and authority
+
+- Keep the user's constraints, non-goals, budget, privacy limits, and authorized actions. They outrank any improvement.
+- Propose improvements that fit the request. Do not silently widen the task or change the stated goal.
+- Ask before using new access or permissions, spending money, causing external effects (sending, publishing, deleting, paying), making irreversible changes, or changing the goal.
+
 ## Speed
 
 Do the same work in less time, held to the same four answers. See `references/speed.md`.
