@@ -36,7 +36,11 @@ npx ambitious-skill uninstall       # remove an install made by this tool
 
 Start a new session after installing so the skill loads.
 
-The installer copies `SKILL.md` and `references/`, and writes a `.ambitious-skill.json` marker. It never overwrites or deletes a directory it did not create.
+The installer copies `SKILL.md` and `references/` and writes a `.ambitious-skill.json` manifest. It records a hash for every file, so it only changes files it installed. It also records whether it created the `ambitious` directory. Uninstall removes that directory only if the installer created it.
+
+**Project installs (`--project`)** go into the project root: the nearest ancestor directory with a `.git` entry, or the current directory if there is none. The installer prints the root it chose. Run it from anywhere inside the repository.
+
+**Symlinks** are refused for the skill directory and everything inside it. A symlinked parent above it (for example `~/.claude` or the `--dir` root) is allowed, because that is a layout choice you make on purpose.
 
 ## Install as a Claude plugin
 
@@ -46,6 +50,15 @@ In Claude Code:
 /plugin marketplace add jelome265/ambitious-skill
 /plugin install ambitious@ambitious-skill-marketplace
 ```
+
+To check the install:
+
+```
+claude plugin list                  # ambitious@ambitious-skill-marketplace should show enabled
+claude plugin details ambitious     # the component inventory should list the ambitious skill
+```
+
+Install scope is chosen in the `/plugin` panel. A plugin installed at user scope applies to all your projects. If you also have the standalone skill installed, Claude Code may use one copy over the other. Keep one installation per machine to avoid confusion.
 
 The plugin is in `plugins/ambitious/`. Its skill copy is generated from the root `SKILL.md` and `references/` with `npm run sync:plugin`. The test suite fails if the two differ.
 

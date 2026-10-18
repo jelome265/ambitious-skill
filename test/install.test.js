@@ -15,9 +15,9 @@ const cwd = path.join(tmp, 'project');
 fs.mkdirSync(home, { recursive: true });
 fs.mkdirSync(cwd, { recursive: true });
 
-function run(args, env = {}) {
+function run(args, env = {}, dir = cwd) {
   return spawnSync(process.execPath, [CLI, ...args], {
-    cwd,
+    cwd: dir,
     env: { ...process.env, HOME: home, USERPROFILE: home, ...env },
     encoding: 'utf8',
   });
@@ -293,6 +293,96 @@ test('--version prints the package version', () => {
   const r = run(['--version']);
   assert.strictEqual(r.status, 0);
   assert.strictEqual(r.stdout.trim(), PKG.version);
+});
+
+// ---- directory ownership, symlink policy, project root ----
+
+test('an existing empty target directory is kept on uninstall (not created by the installer)', () => {
+  wipe();
+  fs.mkdirSync(target(), { recursive: true });
+  const r = run([]);
+  assert.strictEqual(r.status, 0, r.stderr);
+  assert.strictEqual(readManifest().ownsDirectory, false);
+  const u = run(['uninstall']);
+  assert.strictEqual(u.status, 0, u.stderr);
+  assert.ok(fs.existsSync(target()), 'pre-existing directory must survive uninstall');
+  assert.deepStrictEqual(fs.readdirSync(target()), []);
+  assert.match(u.stdout, /was not created by/);
+});
+
+test('a directory the installer created is removed on uninstall', () => {
+  wipe();
+  assert.strictEqual(run([]).status, 0);
+  assert.strictEqual(readManifest().ownsDirectory, true);
+  assert.strictEqual(run(['uninstall']).status, 0);
+  assert.ok(!fs.existsSync(target()));
+});
+
+test('an update keeps the ownership recorded at install', () => {
+  wipe();
+  assert.strictEqual(run([]).status, 0);
+  assert.strictEqual(run(['--force']).status, 0);
+  assert.strictEqual(readManifest().ownsDirectory, true);
+});
+
+test('an older manifest without ownsDirectory is treated as not owned', () => {
+  wipe();
+  assert.strictEqual(run([]).status, 0);
+  const m = readManifest();
+  delete m.ownsDirectory;
+  writeManifest(m);
+  assert.strictEqual(run(['uninstall']).status, 0);
+  assert.ok(fs.existsSync(target()));
+});
+
+test('a non-boolean ownsDirectory is refused', () => {
+  wipe();
+  assert.strictEqual(run([]).status, 0);
+  const m = readManifest();
+  writeManifest({ ...m, ownsDirectory: 'yes' });
+  const r = run(['--force']);
+  assert.notStrictEqual(r.status, 0);
+  assert.match(r.stderr, /invalid ownsDirectory/);
+  writeManifest(m);
+  fs.rmSync(target(), { recursive: true, force: true });
+});
+
+test('a symlinked parent above the skill directory is allowed (user layout choice)', () => {
+  wipe();
+  const real = path.join(tmp, 'real-skills');
+  fs.mkdirSync(real, { recursive: true });
+  fs.mkdirSync(path.join(home, '.claude'), { recursive: true });
+  fs.symlinkSync(real, path.join(home, '.claude', 'skills'), 'dir');
+  const r = run([]);
+  assert.strictEqual(r.status, 0, r.stderr);
+  assert.ok(fs.existsSync(path.join(real, 'ambitious', 'SKILL.md')));
+  assert.strictEqual(run(['uninstall']).status, 0);
+  assert.ok(!fs.existsSync(path.join(real, 'ambitious')));
+  fs.rmSync(real, { recursive: true, force: true });
+  fs.unlinkSync(path.join(home, '.claude', 'skills'));
+});
+
+test('--project from a nested directory installs at the git project root', () => {
+  wipe();
+  const repo = path.join(tmp, 'repo');
+  const nested = path.join(repo, 'packages', 'app');
+  fs.mkdirSync(path.join(repo, '.git'), { recursive: true });
+  fs.mkdirSync(nested, { recursive: true });
+  const r = run(['--project'], {}, nested);
+  assert.strictEqual(r.status, 0, r.stderr);
+  assert.match(r.stdout, /Project root: /);
+  assert.ok(fs.existsSync(path.join(repo, '.claude', 'skills', 'ambitious', 'SKILL.md')));
+  assert.ok(!fs.existsSync(path.join(nested, '.claude')));
+  fs.rmSync(repo, { recursive: true, force: true });
+});
+
+test('--project outside any git repository uses the current directory', () => {
+  const plain = path.join(tmp, 'plain', 'sub');
+  fs.mkdirSync(plain, { recursive: true });
+  const r = run(['--project'], {}, plain);
+  assert.strictEqual(r.status, 0, r.stderr);
+  assert.ok(fs.existsSync(path.join(plain, '.claude', 'skills', 'ambitious', 'SKILL.md')));
+  fs.rmSync(path.join(tmp, 'plain'), { recursive: true, force: true });
 });
 
 fs.rmSync(tmp, { recursive: true, force: true });
