@@ -2,7 +2,16 @@
   "name": "ambitious-skill",
   "version": "0.1.0",
   "description": "Installs the 'ambitious' Claude skill: a tutorial for being more ambitious with models across Speed, Altitude, Depth, and Range. Based on Felix Rieseberg's essay.",
-  "keywords": ["claude", "claude-skill", "skill", "ai", "prompting", "altitude", "depth", "range"],
+  "keywords": [
+    "claude",
+    "claude-skill",
+    "skill",
+    "ai",
+    "prompting",
+    "altitude",
+    "depth",
+    "range"
+  ],
   "license": "Apache-2.0",
   "author": "jelome265",
   "repository": {
@@ -28,6 +37,6 @@
   },
   "scripts": {
     "sync:plugin": "node scripts/sync-plugin.js",
-    "test": "node test/skill-content.test.js && node test/references.test.js && node test/frontmatter.test.js && node test/readme-assets.test.js && node test/plugin.test.js && node test/install.test.js"
+    "test": "node test/skill-content.test.js && node test/references.test.js && node test/frontmatter.test.js && node test/readme-assets.test.js && node test/plugin.test.js && node test/evals.test.js && node test/install.test.js"
   }
 }
