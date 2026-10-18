@@ -1,0 +1,5 @@
+[
+  {"id": "c-901", "app_version": "2.4.1", "platform": "android", "signature": "NullPointerException in SyncWorker", "count": 212},
+  {"id": "c-902", "app_version": "2.4.2", "platform": "ios", "signature": "EXC_BAD_ACCESS in ImageCache", "count": 48},
+  {"id": "c-903", "app_version": "2.4.2", "platform": "android", "signature": "NullPointerException in SyncWorker", "count": 17}
+]

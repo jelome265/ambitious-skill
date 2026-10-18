@@ -1,0 +1,4 @@
+id,full_name,phone,email,created_at
+1,Synthetic Customer One,+265000000001,one@example.test,2025-01-04
+2,Synthetic Customer Two,+265000000002,,2025-02-11
+3,Synthetic Customer Three,,three@example.test,2025-03-30
