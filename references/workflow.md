@@ -30,6 +30,7 @@ Write the plan before doing the work.
 - List the steps in order, with the tool each one uses.
 - Name the outside check that will decide whether the result is right, and what it cannot catch.
 - Name anything missing, such as access, data, or software, and how to get it.
+- Present the rewritten request and the plan to the user for approval, as described in SKILL.md under "Approval before implementation". Do not start Implement until the user approves.
 
 ## 4. Implement
 
@@ -38,3 +39,4 @@ Carry out the plan.
 - Work through the steps in order. Note any change from the plan and why.
 - Run the outside check. Record the result.
 - If the check fails, go back to Investigate.
+- Make any change the user has not approved only after approval.

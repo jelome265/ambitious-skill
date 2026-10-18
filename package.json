@@ -37,6 +37,6 @@
   },
   "scripts": {
     "sync:plugin": "node scripts/sync-plugin.js",
-    "test": "node test/skill-content.test.js && node test/references.test.js && node test/frontmatter.test.js && node test/readme-assets.test.js && node test/plugin.test.js && node test/evals.test.js && node test/install.test.js"
+    "test": "node test/skill-content.test.js && node test/references.test.js && node test/frontmatter.test.js && node test/readme-assets.test.js && node test/plugin.test.js && node test/approval.test.js && node test/install.test.js"
   }
 }
