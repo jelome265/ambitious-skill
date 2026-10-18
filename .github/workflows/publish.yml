@@ -1,23 +1,59 @@
 name: Publish
 
+# Runs when release-please creates a release (workflow_call), when a person runs it
+# manually (workflow_dispatch), or when a person publishes a release in the GitHub UI.
+
 on:
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: true
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to publish, for example ambitious-skill-v0.2.0 or v0.2.0'
+        type: string
+        required: true
   release:
     types: [published]
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   publish:
-    if: startsWith(github.event.release.tag_name, 'v')
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
+      - name: Resolve tag
+        id: tag
+        env:
+          TAG: ${{ inputs.tag || github.event.release.tag_name }}
+        run: |
+          case "$TAG" in
+            *v[0-9]*.[0-9]*.[0-9]*) ;;
+            *) echo "Tag $TAG is not a version tag"; exit 1 ;;
+          esac
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ steps.tag.outputs.tag }}
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
+      - name: Check the tag matches package.json
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          case "$TAG" in
+            *"v$VERSION") echo "Publishing $VERSION from $TAG" ;;
+            *) echo "Tag $TAG does not end with v$VERSION from package.json"; exit 1 ;;
+          esac
       - name: Run tests
         run: npm test
       - name: Publish to npm
