@@ -1,6 +1,6 @@
 ---
 name: ambitious
-description: How to do work that is deeper, not just bigger. Use this skill whenever a task should go beyond its immediate request, whenever a result is generic, shallow, or limited to the obvious field, whenever a recurring process should run with less manual steering, or whenever someone asks for more ambitious, deeper, or higher-leverage work. Before starting, answer the four depth questions in writing and rewrite the request to match them. Do not use for simple questions or small edits.
+description: How to do work that is deeper, not just bigger. Use this skill whenever a task should go beyond its immediate request, whenever a result is generic, shallow, or limited to the obvious field, whenever a recurring process should run with less manual steering, or whenever someone asks for more ambitious, deeper, or higher-leverage work. Before starting, answer the altitude question and the four depth questions in writing, then rewrite the request to match them. Do not use for simple questions or small edits.
 ---
 
 # Ambitious Work: A Deeper Version, Not a Bigger One

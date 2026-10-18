@@ -4,7 +4,7 @@
 
 ## How to run
 
-Requirements: the Claude Code CLI, authenticated the way you normally use it (subscription login or API key).
+Requirements: the Claude Code CLI, authenticated the way you normally use it (subscription login or API key). Use `--claude <path>` to choose a different binary.
 
 ```
 node evals/run.js --dry-run       # print the planned commands; run nothing
@@ -36,7 +36,7 @@ Grade each output against the `expect` field, on these axes:
 4. **Proportion:** is the amount of process in line with the task? Simple tasks should not get ceremony.
 5. **Cost:** time to answer and token use, with and without the skill.
 
-Record a pass or fail per axis, with a one-line reason.
+The grading sheet has columns for trigger, quality, constraints, and proportion. Cost is not a sheet column: each run's time is in its result file under `seconds`, and token use is not recorded by the runner. Record a pass or fail per axis, with a one-line reason.
 
 ## Approval-boundary case
 
