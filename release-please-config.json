@@ -6,7 +6,6 @@
     ".": {
       "package-name": "ambitious-skill",
       "changelog-path": "CHANGELOG.md",
-      "release-as": "0.1.0",
       "extra-files": [
         {
           "type": "json",
