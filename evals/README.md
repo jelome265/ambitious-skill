@@ -4,34 +4,27 @@
 
 ## How to run
 
-Requirements:
-
-- The Claude Code CLI on your PATH.
-- `ANTHROPIC_API_KEY` set in the environment. The runner does not use a login stored in your default configuration, and it does not copy credentials.
+Requirements: the Claude Code CLI, authenticated the way you normally use it (subscription login or API key).
 
 ```
 node evals/run.js --dry-run       # print the planned commands; run nothing
 node evals/run.js --trials 3      # run every case, with and without the skill, three times
 ```
 
-Isolation for every run:
+Working directories: each run starts from a fresh copy of its case's fixture in a temporary directory. The original project is never used as a working directory. The result records every file the run added, changed, or removed.
 
-- a fresh `HOME`, and an explicit `CLAUDE_CONFIG_DIR`, so personal settings, skills, and plugins cannot leak in;
-- a fresh working directory that starts as a copy of the case's fixture, never the source tree;
-- a record of every file the run changed, compared with the fixture.
+Baseline: personal settings are not removed. Before a real run, the runner refuses to start if the ambitious skill is installed in `~/.claude/skills` or enabled as a plugin, because the without-skill runs would load it.
 
-Safety limits:
+Authentication: the runner does not set or require `ANTHROPIC_API_KEY`. If that variable is set in your environment, Claude Code uses it instead of your subscription login, and runs are billed to that key.
+
+Limits:
 
 - `--max-runs` (default 60) refuses larger plans.
-- The runner stops after three consecutive infrastructure failures, such as process errors or timeouts.
+- `--timeout-seconds` (default 300) limits each run.
+- The runner stops at once if the first run fails, and after three consecutive failures later on.
+- A limit on tool turns is not enforced, because its CLI flag has not been verified.
 
-The runner writes `evals/results/<timestamp>/`:
-
-- one JSON file per run, with the output, exit status, time, changed files, and metadata (runner version, Claude Code version, fixture revision);
-- `grading-sheet.csv`, with the conditions shown as blinded labels A and B;
-- `key.json`, which maps each label to its condition. Open it only after grading.
-
-Results are not committed (`evals/results/` is ignored). Record the summary in the pull request that makes the change.
+Output: `evals/results/<timestamp>/` (or `--results-dir`) contains one JSON file per run, with the output, exit status, time, changed files, and metadata (runner version, Claude Code version, fixture revision), plus `grading-sheet.csv` with blinded labels A and B, and `key.json`. Open `key.json` only after grading. Results are not committed (`evals/results/` is ignored).
 
 ## Grading
 
