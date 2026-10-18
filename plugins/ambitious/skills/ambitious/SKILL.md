@@ -43,6 +43,21 @@ For larger or riskier work, research, investigate, plan, and implement is a sugg
 
 When the five answers are written, rewrite the request so it asks for them. Keep the original goal. Add the expert steps, the raw inputs, the methods, and the outside check. Add nothing the answers do not require.
 
+## Approval before implementation
+
+After you rewrite the request, show it to the user before you do the work. Include:
+
+- the rewritten request,
+- what changed from the original: added steps, methods, inputs, checks, and any target,
+- your assumptions,
+- the outside check that will decide whether the result is right.
+
+Then stop and wait for the user to approve or amend it. Do not implement the rewritten request until the user approves it.
+
+Before approval, you may read, research, and investigate, and you may take any action the user has already authorized for this task. You may not change files, send messages, spend money, or cause any other external effect until the user approves.
+
+Silence, the original request, or your own draft is not approval. An explicit yes or go-ahead after the brief counts as approval. If the user amends the brief, show the amended version again before you implement it.
+
 ## Scope and authority
 
 - Keep the user's constraints, non-goals, budget, privacy limits, and authorized actions. They outrank any improvement.
