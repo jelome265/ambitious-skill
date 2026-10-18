@@ -4,7 +4,20 @@
 
 ## How to run
 
-For each case, start two fresh sessions: one with the skill enabled and one with it disabled. Use the same prompt, and keep any attached materials the same.
+Requires the Claude Code CLI with an authenticated account. Each run uses a clean `HOME`, so personal skills and plugins cannot leak into the baseline.
+
+```
+node evals/run.js --dry-run       # print the commands, run nothing
+node evals/run.js --trials 3      # run every case, with and without the skill, three times
+```
+
+The runner writes `evals/results/<timestamp>/`:
+
+- one JSON file per run, with the output, exit status, and time;
+- `grading-sheet.csv`, with the conditions shown as blinded labels A and B;
+- `key.json`, which maps each label to its condition. Open it only after grading.
+
+Results are not committed (`evals/results/` is ignored). Record the summary in the pull request that makes the change.
 
 ## Grading
 
