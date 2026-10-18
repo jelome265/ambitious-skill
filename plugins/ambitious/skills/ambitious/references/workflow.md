@@ -1,6 +1,8 @@
 # Workflow: research, investigate, plan, implement
 
-This is a suggested order for work in this skill. Use it when a task is large, risky, or recurring. For a small or clear task, it is fine to skip ahead. Nothing here is a checkpoint that stops work.
+This is a suggested order for work in this skill. Use it when a task is large, risky, or recurring. For a small or clear task, it is fine to skip ahead.
+
+The order of research, investigation, and planning is flexible. One boundary is not: the user must approve a rewritten request before you implement it. See SKILL.md, "Approval before implementation".
 
 ## 1. Research
 
