@@ -50,7 +50,11 @@ After you rewrite the request, show it to the user before you do the work. Inclu
 - the rewritten request,
 - what changed from the original: added steps, methods, inputs, checks, and any target,
 - your assumptions,
-- the outside check that will decide whether the result is right.
+- the outside check that will decide whether the result is right. It must produce a result you can record, not only a description of a test.
+- for any target: the baseline, how it will be measured, the constraints that can veto it, and the evidence or cheap test that it is achievable.
+- the cheapest experiment that could show the approach is wrong.
+- the human review and time cost of the proposed work.
+- only the questions the user must answer, and only those that would change the brief.
 
 Then stop and wait for the user to approve or amend it. Do not implement the rewritten request until the user approves it.
 
