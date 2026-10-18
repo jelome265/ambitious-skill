@@ -10,6 +10,11 @@
 //      unique, allowlisted, and hash-checked before anything is changed.
 //   4. Updates are staged, applied with a journal, and rolled back on failure. A crash leaves a
 //      journal behind; the next run rolls it back before doing anything else.
+//   5. The skill directory and everything under it must be real directories and files. Symlinks
+//      are refused there. Parent directories above the skill directory (for example ~/.claude or a
+//      --dir root) may be symlinks, because that is a deliberate layout choice.
+//   6. The manifest records whether the installer created the skill directory (ownsDirectory).
+//      Uninstall removes the directory only when the installer created it.
 
 const fs = require('fs');
 const os = require('os');
@@ -52,7 +57,8 @@ Usage:
   npx ambitious-skill uninstall [options]
 
 Options:
-  --project         Install into ./.claude/skills (project scope)
+  --project         Install into <project root>/.claude/skills. The project root is the nearest
+                    ancestor with a .git entry, or the current directory if there is none.
   --dir <path>      Install into <path>/${SKILL_NAME} (custom skills root)
   --force           Update an existing install made by this tool
   -h, --help        Show this help
@@ -98,9 +104,20 @@ function parse(argv) {
   return opts;
 }
 
+// Nearest ancestor of start that holds a .git entry, or start itself if there is none.
+function findProjectRoot(start) {
+  let dir = start;
+  for (;;) {
+    if (lstatOrNull(path.join(dir, '.git'))) return dir;
+    const parent = path.dirname(dir);
+    if (parent === dir) return start;
+    dir = parent;
+  }
+}
+
 function skillsRoot(opts) {
   if (opts.dir) return path.resolve(opts.dir);
-  if (opts.project) return path.resolve(process.cwd(), '.claude', 'skills');
+  if (opts.project) return path.join(findProjectRoot(process.cwd()), '.claude', 'skills');
   return path.join(os.homedir(), '.claude', 'skills');
 }
 
@@ -191,6 +208,9 @@ function readManifest(target) {
   if (!data || data.name !== pkg.name || typeof data.version !== 'string' || !Array.isArray(data.files)) {
     fail(`${MANIFEST} in ${target} does not match ${pkg.name}; refusing to change it.`);
   }
+  if (data.ownsDirectory !== undefined && typeof data.ownsDirectory !== 'boolean') {
+    fail(`${MANIFEST} in ${target} has an invalid ownsDirectory value; refusing to change it.`);
+  }
   const seen = new Set();
   for (const f of data.files) {
     const ok =
@@ -278,6 +298,7 @@ function removeEmptyDirs(dir, stopAt) {
 
 function install(opts) {
   const root = skillsRoot(opts);
+  if (opts.project) console.log(`Project root: ${path.dirname(path.dirname(root))}`);
   const target = path.join(root, SKILL_NAME);
   const files = payloadFiles();
 
@@ -323,6 +344,8 @@ function install(opts) {
   const journalPath = path.join(target, JOURNAL);
   const manifestPath = path.join(target, MANIFEST);
   const createdTarget = !liveTop;
+  // A directory we create is ours. A directory that already existed, even empty, is not.
+  const ownsDirectory = existing ? existing.ownsDirectory === true : createdTarget;
   let journal = null;
 
   try {
@@ -379,6 +402,7 @@ function install(opts) {
       name: pkg.name,
       version: pkg.version,
       installedAt: new Date().toISOString(),
+      ownsDirectory,
       files: written.map((w) => ({ path: w.path, sha256: w.sha256 })),
     });
     fs.rmSync(journalPath, { force: true });
@@ -429,9 +453,12 @@ function uninstall(opts) {
     removeEmptyDirs(path.dirname(full), target);
   }
   fs.rmSync(path.join(target, MANIFEST), { force: true });
-  if (fs.readdirSync(target).length === 0) {
+  const remaining = fs.readdirSync(target).length;
+  if (remaining === 0 && manifest.ownsDirectory === true) {
     fs.rmdirSync(target);
     console.log(`Removed ${SKILL_NAME} from ${target}`);
+  } else if (remaining === 0) {
+    console.log(`Removed ${SKILL_NAME} from ${target}. The directory was not created by ${pkg.name}, so it was kept.`);
   } else {
     console.log(`Removed ${SKILL_NAME} from ${target}. Files you added there were kept.`);
   }
