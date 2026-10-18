@@ -1,0 +1,5 @@
+2026-10-01T10:00:01Z charge customer=1042 amount=19.99 status=ok
+2026-10-01T10:00:02Z charge customer=1042 amount=19.99 status=ok
+2026-10-01T10:00:02Z charge customer=1042 amount=19.99 status=timeout
+2026-10-01T10:00:09Z refund payment=88 amount=5.00 status=ok
+2026-10-01T10:01:44Z charge customer=2201 amount=0.30000000000000004 status=ok
