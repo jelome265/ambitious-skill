@@ -1,6 +1,6 @@
 {
   "name": "ambitious-skill",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Installs the 'ambitious' Claude skill: a tutorial for being more ambitious with models across Speed, Altitude, Depth, and Range. Based on Felix Rieseberg's essay.",
   "keywords": [
     "claude",
