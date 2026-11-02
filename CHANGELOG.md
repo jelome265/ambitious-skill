@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/jelome265/ambitious-skill/compare/ambitious-skill-v0.1.0...ambitious-skill-v0.1.1) (2026-11-02)
+
+
+### Bug Fixes
+
+* **release:** publish after a release is created; verify the tag before publishing ([#26](https://github.com/jelome265/ambitious-skill/issues/26)) ([dbac805](https://github.com/jelome265/ambitious-skill/commit/dbac805f45a9d51fd41b006cb6000b3673c49267))
+
 ## 0.1.0 (2026-10-18)
 
 
